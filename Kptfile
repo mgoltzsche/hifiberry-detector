@@ -1,0 +1,26 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: hifiberry-detector
+  annotations:
+    config.kubernetes.io/local-config: "true"
+upstream:
+  type: git
+  git:
+    repo: https://github.com/mgoltzsche/kubemate-app-blueprints
+    directory: /packages/app
+    ref: main
+  updateStrategy: resource-merge
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/mgoltzsche/kubemate-app-blueprints
+    directory: /packages/app
+    ref: main
+    commit: c9a1e9a81f73f364f2ef028e6d412496718ff6fa
+info:
+  description: application
+pipeline:
+  mutators:
+    - image: gcr.io/kpt-fn/apply-setters:v0.2.0
+      configPath: ./setters.yaml
