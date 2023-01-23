@@ -22,7 +22,7 @@ spec:
       hostPID: true
       containers:
       - name: detector
-        image: ghcr.io/mgoltzsche/snapcast-client:0.4.1 # kpt-set: ${image}:${version}
+        image: ghcr.io/mgoltzsche/hifiberry-detector:0.0.2 # kpt-set: ${image}:${version}
         securityContext:
           privileged: true
           runAsUser: 0
