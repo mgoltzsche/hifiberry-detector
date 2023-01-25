@@ -2,8 +2,6 @@
 
 set -eu
 
-cat /proc/mounts
-
 detect-hifiberry
 
 if [ -d /host/etc ]; then

@@ -1,6 +1,13 @@
 # hifiberry-detector
 
-Containerized detect-hifiberry script from [hifiberry-os](https://github.com/hifiberry/hifiberry-os), configuring the driver overlay for your Hifiberry HAT automatically.
+Containerized `detect-hifiberry` script from [hifiberry-os](https://github.com/hifiberry/hifiberry-os), configuring the driver overlay for your Hifiberry HAT automatically.
+
+## Usage
+
+Either install it as app using the [kubemate](https://github.com/mgoltzsche/kubemate) GUI or run:
+```sh
+docker run --privileged -v /dev/snd:/dev/snd -v /boot:/boot -v /lib/modules:/lib/modules ghcr.io/mgoltzsche/hifiberry-detector
+```
 
 ## Development
 
