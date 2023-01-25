@@ -15,7 +15,7 @@ spec:
       labels:
         app.kubernetes.io/component: detector
     spec:
-      restartPolicy: Never
+      restartPolicy: Always
       hostPID: true
       serviceAccountName: hifiberry-detector
       dnsPolicy: ClusterFirst
@@ -23,6 +23,9 @@ spec:
       containers:
       - name: detector
         image: ghcr.io/mgoltzsche/hifiberry-detector:0.0.3 # kpt-set: ${image}:${version}
+        env:
+        - name: KEEP_RUNNING
+          value: "true"
         securityContext:
           privileged: true
           runAsUser: 0
@@ -48,7 +51,6 @@ spec:
       - name: boot
         hostPath:
           path: /boot
-          type: Directory
       - name: lib-modules
         hostPath:
           path: /lib/modules
