@@ -7,10 +7,10 @@ WORKDIR /hats/eepromutils
 RUN make
 
 FROM debian:bookworm-slim
-ENV HIFIBERRYOS_VERSION=v20221128
-ENV DEBIAN_FRONTEND=noninteractive
+ENV HIFIBERRYOS_VERSION=v20221128 \
+	KEEP_RUNNING=false
 RUN apt-get update
-RUN apt-get install -y bash alsa-utils sox i2c-tools wget
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y bash alsa-utils sox i2c-tools wget
 RUN set -eux; \
 	wget -qO /bin/detect-hifiberry https://raw.githubusercontent.com/hifiberry/hifiberry-os/${HIFIBERRYOS_VERSION}/buildroot/package/hifiberry-tools/detect-hifiberry; \
 	chmod +x /bin/detect-hifiberry; \
