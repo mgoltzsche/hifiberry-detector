@@ -28,8 +28,6 @@ spec:
           value: "true"
         securityContext:
           privileged: true
-          runAsUser: 0
-          runAsGroup: 29
         volumeMounts:
         - name: dev-snd
           mountPath: /dev/snd
