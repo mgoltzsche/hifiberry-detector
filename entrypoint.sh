@@ -1,5 +1,7 @@
 #!/bin/sh
 
+(set -x; i2cget -y 1 0x4d 40)
+
 set -eu
 
 detect-hifiberry && (
