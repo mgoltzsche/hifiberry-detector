@@ -37,6 +37,12 @@ spec:
           mountPath: /boot
         - name: lib-modules
           mountPath: /lib/modules
+      readinessProbe:
+        exec:
+          command:
+          - cat /tmp/ready
+        initialDelaySeconds: 3
+        periodSeconds: 1
       volumes:
       - name: dev-snd
         hostPath:

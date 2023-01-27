@@ -13,11 +13,10 @@ if [ -d /host/etc ]; then
 	fi
 fi
 ) &&
-touch /tmp/ready &&
+echo ready /tmp/ready &&
 echo Configuration is ready || echo 'ERROR: Hifiberry auto-configuration failed' >&2
 
 # TODO: restart machine when config was changed.
-# TODO: make readinessprobe succeed only at this point.
 
 if [ "$KEEP_RUNNING" = true ]; then
 	sleep infinity &
