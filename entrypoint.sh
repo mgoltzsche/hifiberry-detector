@@ -1,7 +1,5 @@
 #!/bin/sh
 
-(set -x; i2cget -y 1 0x4d 40)
-
 set -eu
 
 backupBootConfig() {
@@ -9,12 +7,10 @@ backupBootConfig() {
 		echo 'Creating /boot/config.txt backup at /boot/config.txt.base'
 		cp -f /boot/config.txt /boot/config.txt.base.tmp
 		mv /boot/config.txt.base.tmp /boot/config.txt.base
-		sync
 	else
 		echo 'Restoring /boot/config.txt backup from /boot/config.txt.base'
 		cp -f /boot/config.txt.base /boot/config.txt.tmp
 		mv /boot/config.txt.tmp /boot/config.txt
-		sync
 	fi
 }
 
@@ -51,6 +47,8 @@ terminate() {
 	fi
 }
 
+
+echo "Detected model no: `i2cget -y 1 0x4d 40`" || true
 
 cp -f /boot/config.txt /tmp/boot-config.txt.prev &&
 backupBootConfig && # Make detect-hifiberry idempotent, allow restoring config.

@@ -31,8 +31,8 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
-        - name: dev-snd
-          mountPath: /dev/snd
+        - name: dev
+          mountPath: /dev
         - name: etc
           mountPath: /host/etc
         - name: boot
@@ -46,9 +46,9 @@ spec:
         initialDelaySeconds: 3
         periodSeconds: 1
       volumes:
-      - name: dev-snd
+      - name: dev
         hostPath:
-          path: /dev/snd
+          path: /dev
           type: Directory
       - name: etc
         hostPath:
