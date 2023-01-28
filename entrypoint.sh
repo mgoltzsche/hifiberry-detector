@@ -10,12 +10,16 @@ backupBootConfig() {
 		cp -f /boot/config.txt /boot/config.txt.bak2
 		mv /boot/config.txt.bak2 /boot/config.txt.bak
 		sync
-	elif ! aplay -l | grep -q hifiberry | grep -q pcm5102; then
+	elif ! alsaDeviceDetected; then
 		echo 'Restoring /boot/config.txt backup from /boot/config.txt.bak'
 		cp -f /boot/config.txt.bak /boot/config.txt2
 		mv /boot/config.txt2 /boot/config.txt
 		sync
 	fi
+}
+
+alsaDeviceDetected() {
+	aplay -l | grep hifiberry | grep -q pcm5102
 }
 
 rebootIfBootConfigChanged() {
