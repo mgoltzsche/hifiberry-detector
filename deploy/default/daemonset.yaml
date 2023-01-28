@@ -26,6 +26,8 @@ spec:
         env:
         - name: KEEP_RUNNING
           value: "true"
+        - name: REBOOT_ON_CHANGE
+          value: "true"
         securityContext:
           privileged: true
         volumeMounts:
