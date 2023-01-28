@@ -5,21 +5,17 @@
 set -eu
 
 backupBootConfig() {
-	if [ ! -f /boot/config.txt.bak ]; then
-		echo 'Creating /boot/config.txt backup at /boot/config.txt.bak'
-		cp -f /boot/config.txt /boot/config.txt.bak2
-		mv /boot/config.txt.bak2 /boot/config.txt.bak
+	if [ ! -f /boot/config.txt.base ]; then
+		echo 'Creating /boot/config.txt backup at /boot/config.txt.base'
+		cp -f /boot/config.txt /boot/config.txt.base.tmp
+		mv /boot/config.txt.base.tmp /boot/config.txt.base
 		sync
-	elif ! alsaDeviceDetected; then
-		echo 'Restoring /boot/config.txt backup from /boot/config.txt.bak'
-		cp -f /boot/config.txt.bak /boot/config.txt2
-		mv /boot/config.txt2 /boot/config.txt
+	else
+		echo 'Restoring /boot/config.txt backup from /boot/config.txt.base'
+		cp -f /boot/config.txt.base /boot/config.txt.tmp
+		mv /boot/config.txt.tmp /boot/config.txt
 		sync
 	fi
-}
-
-alsaDeviceDetected() {
-	aplay -l | grep hifiberry | grep -q pcm5102
 }
 
 rebootIfBootConfigChanged() {
