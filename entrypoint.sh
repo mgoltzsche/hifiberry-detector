@@ -24,7 +24,9 @@ alsaDeviceDetected() {
 
 rebootIfBootConfigChanged() {
 	if [ "$REBOOT_ON_CHANGE" = true ]; then
-		if diff /boot/config.txt /tmp/boot-config.txt.prev; then
+		STATUS=0
+		diff /boot/config.txt /tmp/boot-config.txt.prev || STATUS=$?
+		if [ $STATUS -eq 1 ]; then
 			echo 'Rebooting the system since /boot/config.txt changed'
 			sleep 3
 			kill -2 1
