@@ -43,10 +43,7 @@ writeHostAlsaConfigIfNotExist() {
 terminate() {
 	echo "$2"
 	if [ "$KEEP_RUNNING" = true ]; then
-		sleep infinity &
-		SPID=$!
-		trap "kill $SPID" 1 2 15
-		wait $SPID
+		exec sleep infinity
 	else
 		exit $1
 	fi
