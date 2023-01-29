@@ -31,12 +31,10 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
+        - name: host
+          mountPath: /host
         - name: dev
           mountPath: /dev
-        - name: etc
-          mountPath: /host/etc
-        - name: boot
-          mountPath: /boot
         - name: lib-modules
           mountPath: /lib/modules
       readinessProbe:
@@ -46,17 +44,14 @@ spec:
         initialDelaySeconds: 3
         periodSeconds: 1
       volumes:
+      - name: host
+        hostPath:
+          path: /
+          type: Directory
       - name: dev
         hostPath:
           path: /dev
           type: Directory
-      - name: etc
-        hostPath:
-          path: /etc
-          type: Directory
-      - name: boot
-        hostPath:
-          path: /boot
       - name: lib-modules
         hostPath:
           path: /lib/modules
