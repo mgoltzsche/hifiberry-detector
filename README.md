@@ -1,6 +1,6 @@
 # hifiberry-detector
 
-Containerized `detect-hifiberry` script from [hifiberry-os](https://github.com/hifiberry/hifiberry-os), configuring the driver overlay for your Hifiberry HAT automatically.
+Containerized `detect-hifiberry` script from [HiFiBerryOS](https://github.com/hifiberry/hifiberry-os), configuring the driver overlay for your [HiFiBerry](https://www.hifiberry.com/) HAT automatically.
 
 ## Usage
 

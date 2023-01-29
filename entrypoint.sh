@@ -75,7 +75,7 @@ if alsaDeviceDetected; then
 	echo ready > /tmp/ready &&
 	terminate 0 'Skipping auto-configuration since ALSA device found'
 else
-	echo 'Detecting Hifiberry I2C device ...'
+	echo 'Detecting HiFiBerry I2C device ...'
 	modprobe i2c-dev &&
 	waitForI2CDevicesToBecomeAvailable &&
 	echo "Found I2C devices: $(find /dev -path '/dev/i2c*' | xargs)" &&
@@ -85,5 +85,5 @@ else
 	writeHostAlsaConfigIfNotExist &&
 	rebootIfBootConfigChanged &&
 	echo ready > /tmp/ready &&
-	terminate 0 'Configuration is ready' || terminate 1 'ERROR: Hifiberry auto-configuration failed' >&2
+	terminate 0 'Configuration is ready' || terminate 1 'ERROR: HiFiBerry auto-configuration failed' >&2
 fi
