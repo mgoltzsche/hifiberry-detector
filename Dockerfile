@@ -2,12 +2,13 @@ FROM debian:bookworm-slim AS eepromutils
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get install -y git make gcc libc-dev
-RUN git clone https://github.com/raspberrypi/hats.git
+ARG RPIHATS=5f2058bf8eebf43dd19d7218f1e38d14a9835231 # 03/2023
+RUN git clone https://github.com/raspberrypi/hats.git && cd /hats && git checkout $RPIHATS_VERSION
 WORKDIR /hats/eepromutils
 RUN make
 
 FROM debian:bookworm-slim
-ENV HIFIBERRYOS_VERSION=v20221128 \
+ENV HIFIBERRYOS_VERSION=v20230404 \
 	KEEP_RUNNING=false \
 	REBOOT_ON_CHANGE=false
 RUN apt-get update
