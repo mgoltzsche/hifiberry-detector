@@ -24,7 +24,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: detector
-        image: ghcr.io/mgoltzsche/hifiberry-detector:0.0.15 # kpt-set: ${image}:${version}
+        image: ghcr.io/mgoltzsche/hifiberry-detector:0.0.16 # kpt-set: ${image}:${version}
         env:
         - name: KEEP_RUNNING
           value: "true"
