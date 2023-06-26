@@ -58,8 +58,8 @@ waitForI2CDevicesToBecomeAvailable() {
 }
 
 printDeviceInfo() {
-	echo "INFO: Found I2C devices: $(find /dev -path '/dev/i2c*' | xargs)"
-	echo 'INFO: Found ALSA devices:'
+	echo "INFO: I2C devices: $(find /dev -path '/dev/i2c*' | xargs)"
+	echo 'INFO: ALSA devices:'
 	aplay -l | grep -E '^card ' | sed -E 's/^/INFO:   /'
 }
 
