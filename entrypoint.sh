@@ -32,6 +32,7 @@ backupBootConfig() {
 
 writeHostBootConfig() {
 	echo 'INFO: Writing /boot/config.txt to host'
+	diff /boot/config.txt /host/boot/config.txt || true
 	cp -f /boot/config.txt /host/boot/config.txt.tmp
 	mv /host/boot/config.txt.tmp /host/boot/config.txt
 	sync
