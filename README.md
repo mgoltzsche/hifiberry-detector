@@ -6,8 +6,9 @@ Containerized `detect-hifiberry` script from [HiFiBerryOS](https://github.com/hi
 
 Either install it as app using the [kubemate](https://github.com/mgoltzsche/kubemate) GUI or run:
 ```sh
-docker run --rm --privileged --pid host -v /:/host -v /dev:/dev -v /lib/modules:/lib/modules ghcr.io/mgoltzsche/hifiberry-detector
+docker run --rm --privileged --pid host -v /:/host -v /dev:/dev -v /lib/modules:/lib/modules ghcr.io/mgoltzsche/hifiberry-detector:<VERSION>
 ```
+(Within that command, you have to replace `<VERSION>` with the latest version without the leading `v`.)
 
 ## Development
 
