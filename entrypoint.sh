@@ -30,6 +30,11 @@ backupBootConfig() {
 	fi
 }
 
+copyHostBootConfigIntoContainer() {
+	mkdir -p /boot
+	[ -f /boot/config.txt ] || cp /host/boot/config.txt /boot/config.txt
+}
+
 writeHostBootConfig() {
 	echo 'INFO: Writing /boot/config.txt to host'
 	diff /boot/config.txt /host/boot/config.txt || true
@@ -98,7 +103,8 @@ else
 	waitForI2CDevicesToBecomeAvailable &&
 	printDeviceInfo &&
 	backupBootConfig &&
-	detect-hifiberry && # Writes /boot/config.txt eventually, configuring dtoverlay.
+	copyHostBootConfigIntoContainer &&
+	(detect-hifiberry || (cat /var/log/hifiberry.log 2>/dev/null; false)) && # Writes /boot/config.txt eventually, configuring dtoverlay.
 	writeHostALSAConfigIfNotExist &&
 	writeHostBootConfig &&
 	markHostAsIgnorable &&
