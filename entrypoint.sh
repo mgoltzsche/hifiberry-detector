@@ -2,6 +2,10 @@
 
 IGNORE_MARKER_FILE=/host/boot/hifiberry-autoconfig.ignore
 
+BOOT_CONFIG_FILE=/boot/config.txt
+# On newer RaspiOS versions the boot config is at /boot/firmware/config.txt
+[ ! -f /host/boot/firmware/config.txt ] || BOOT_CONFIG_FILE=/boot/firmware/config.txt
+
 set -eu
 
 isHostIgnorable() {
@@ -19,27 +23,27 @@ alsaDeviceDetected() {
 }
 
 backupBootConfig() {
-	BACKUP_FILE=/boot/config.txt.hifiberry-autoconf.bak
+	BACKUP_FILE=${BOOT_CONFIG_FILE}.hifiberry-autoconf.bak
 	if [ ! -f /host${BACKUP_FILE} ]; then
-		echo "INFO: Creating /boot/config.txt backup at ${BACKUP_FILE}"
-		cp -f /host/boot/config.txt /host${BACKUP_FILE}.tmp
+		echo "INFO: Creating ${BOOT_CONFIG_FILE} backup at ${BACKUP_FILE}"
+		cp -f /host${BOOT_CONFIG_FILE} /host${BACKUP_FILE}.tmp
 		mv /host${BACKUP_FILE}.tmp /host${BACKUP_FILE}
 		sync
 	else
-		echo "INFO: Skipping /boot/config.txt backup since it already exists at ${BACKUP_FILE}"
+		echo "INFO: Skipping ${BOOT_CONFIG_FILE} backup since it already exists at ${BACKUP_FILE}"
 	fi
 }
 
 copyHostBootConfigIntoContainer() {
 	mkdir -p /boot
-	[ -f /boot/config.txt ] || cp /host/boot/config.txt /boot/config.txt
+	[ -f /boot/config.txt ] || cp /host${BOOT_CONFIG_FILE} /boot/config.txt
 }
 
 writeHostBootConfig() {
-	echo 'INFO: Writing /boot/config.txt to host'
-	diff /boot/config.txt /host/boot/config.txt || true
-	cp -f /boot/config.txt /host/boot/config.txt.tmp
-	mv /host/boot/config.txt.tmp /host/boot/config.txt
+	echo 'INFO: Writing ${BOOT_CONFIG_FILE} to host'
+	diff /boot/config.txt /host${BOOT_CONFIG_FILE} || true
+	cp -f /boot/config.txt /host${BOOT_CONFIG_FILE}.tmp
+	mv /host${BOOT_CONFIG_FILE}.tmp /host${BOOT_CONFIG_FILE}
 	sync
 }
 
