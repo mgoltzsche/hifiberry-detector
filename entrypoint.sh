@@ -56,6 +56,12 @@ writeHostALSAConfigIfNotExist() {
 	fi
 }
 
+disableOnboardAudioDevices() {
+	sed -Ei '/^dtparam=audio=on/d' /boot/config.txt &&
+	sed -Ei 's/^dtoverlay=vc4-fkms-v3d$/dtoverlay=vc4-fkms-v3d,audio=off/' /boot/config.txt &&
+	sed -Ei 's/^dtoverlay=vc4-kms-v3d$/dtoverlay=vc4-kms-v3d,noaudio/' /boot/config.txt
+}
+
 waitForI2CDevicesToBecomeAvailable() {
 	I2S_INIT_TIMEOUT=30
 	for _ in $(seq 1 $I2S_INIT_TIMEOUT); do
@@ -109,6 +115,7 @@ else
 	backupBootConfig &&
 	copyHostBootConfigIntoContainer &&
 	(detect-hifiberry || (cat /var/log/hifiberry.log 2>/dev/null; false)) && # Writes /boot/config.txt eventually, configuring dtoverlay.
+	disableOnboardAudioDevices &&
 	writeHostALSAConfigIfNotExist &&
 	writeHostBootConfig &&
 	markHostAsIgnorable &&
